@@ -3,13 +3,11 @@ const router = express.Router()
 
 import CommentSerivce from '../services/CommentService.js'
 
-router.get('/:id', async (req, res) => {
-
-	const id = req.params.id
+router.get('/all', async (_, res) => {
 
 	try {
-		const user = await CommentSerivce.
-		res.status(200).json(user)
+		const comments = await CommentSerivce.viewAllComments()
+		res.status(200).json(comments)
 	}
 	catch (err) {
 		console.error(err)
@@ -23,7 +21,7 @@ router.post('/', async (req, res) => {
 	const data = req.body
 
 	try {
-		const response = await UserService.signUp(data)
+		const response = await CommentSerivce.addComment(data)
 		res.status(200).json(response)
 	}
 	catch (err) {
@@ -33,13 +31,14 @@ router.post('/', async (req, res) => {
 
 })
 
-router.get('/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
 
-	const id = req.params.id
+    const id = req.params.id
+    const data = req.body
 
 	try {
-		const user = await UserService.viewUser(id)
-		res.status(200).json(user)
+		const comment = await CommentSerivce.editComment(id, data)
+		res.status(200).json(comment)
 	}
 	catch (err) {
 		console.error(err)
@@ -49,13 +48,13 @@ router.get('/:id', async (req, res) => {
 })
 
 
-router.get('/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
 
 	const id = req.params.id
 
 	try {
-		const user = await UserService.viewUser(id)
-		res.status(200).json(user)
+		const response = await CommentSerivce.deleteComment(id)
+		res.status(200).json(response)
 	}
 	catch (err) {
 		console.error(err)
@@ -67,12 +66,12 @@ router.get('/:id', async (req, res) => {
 
 router.post('/reply/:id', async (req, res) => {
 
-	const email = req.body.email
-	const password = req.body.password
+	const id = req.params.id
+    const data = req.body
 
 	try {
-        const token = await UserService.logIn(email, password)
-        res.status(200).json(token)
+        const response = await CommentSerivce.reply(id, data)
+        res.status(200).json(response)
 	} catch (err) {
         console.error(err)
         res.status(400).json({ error: err })
