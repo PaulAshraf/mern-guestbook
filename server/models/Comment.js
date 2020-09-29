@@ -8,13 +8,21 @@ const Schema = mongoose.Schema({
     user: {
 		type: String,
 		required: true,
-	},
+    },
+    // the replies on a comment is an array of comments 
+    // which is indicated by `[this]`
+    // `this` refers to the comment class created by the `mongoose.Schema({})` class
     replies: {
         type: [this]
     },
+    // adds the time of creation of the comment
 	time: {
 		type: Date,
 		default: Date.now,
+	},
+	isReply: {
+		type: Boolean,
+		default: false
 	}
 })
 
