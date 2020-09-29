@@ -13,6 +13,8 @@ const addComment = async (comment) => {
 // OUTPUT: the mongoose respone of the operation
 const editComment = async (id, comment) => {
     const res = await Comment.User.findByIdAndUpdate(id, comment, {new: true})
+    if(!res)
+        throw {error: 'No comment with this id'}
     return res
 }
 
@@ -21,6 +23,8 @@ const editComment = async (id, comment) => {
 // OUTPUT: the mongoose respone of the operation
 const deleteComment = async (comment) => {
     const res = await Comment.deleteOne(id)
+    if(!res)
+        throw {error: 'No comment with this id'}
     return res
 }
 
