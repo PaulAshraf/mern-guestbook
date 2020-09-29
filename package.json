@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "A Virtual Guestbook implemented with MERN stack.",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "node app.js",
+    "dev": "nodemon server/app.js",
+    "start": "node server/app.js",
     "build": "cd client && npm i && npm run build && cd ..",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +20,15 @@
   "bugs": {
     "url": "https://github.com/PaulAshraf/mern-guestbook/issues"
   },
-  "homepage": "https://github.com/PaulAshraf/mern-guestbook#readme"
+  "homepage": "https://github.com/PaulAshraf/mern-guestbook#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.2",
+    "mongoose": "^5.10.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
