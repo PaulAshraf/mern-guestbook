@@ -20,6 +20,16 @@ app.get('/', (_, res) => {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
 })
 
+mongoose.connect(`mongodb+srv://${config.dbUser}:${config.dbPassword}@${config.hostName}/${config.dbName}?retryWrites=true&w=majority`,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true
+    })
+    .then(() => console.log('✔️ Connected to MongoDB'))
+    .catch((err) => console.error(err))
+
 const port = config.port || 8000
 app.listen(port, () => {
     console.log(`✔️ listening on port ${port}`)
