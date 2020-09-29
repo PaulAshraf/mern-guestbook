@@ -14,7 +14,7 @@ export default (req, res, next) => {
 		if (!verified) {
 			return res.status(401).json({ error: 'Invalid token' })
 		}
-		req.username = verified.username
+		req.user = verified.user
 		next()
 	} catch (err) {
 		console.error(err)

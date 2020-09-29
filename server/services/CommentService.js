@@ -15,15 +15,6 @@ const addComment = async (comment) => {
     return res
 }
 
-
-// Adds a new comment to the guestbook
-// INPUT: the data of the comment
-// OUTPUT: the mongoose respone of the operation
-const addComment = async (comment) => {
-    const res = await Comment.insertMany(comment)
-    return res
-}
-
 // edits an existing comment on the guestbook
 // INPUT: the id of the comment, the new data
 // OUTPUT: the mongoose respone of the operation

@@ -43,8 +43,8 @@ const logIn = async (email, password) => {
     if (!correct) 
         throw {error: 'Invalid password'}
 
-    const token = jwt.sign({ username: username }, config.jwtSecret)
-    res.status(200).json({ token: token })
+    const token = jwt.sign({ user }, config.jwtSecret)
+    res.status(200).json({ token })
 
 
 

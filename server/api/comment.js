@@ -1,6 +1,7 @@
 import express from 'express'
 const router = express.Router()
 
+import auth from './auth.js'
 import CommentSerivce from '../services/CommentService.js'
 
 router.get('/all', async (_, res) => {
@@ -16,9 +17,10 @@ router.get('/all', async (_, res) => {
 
 })
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
 
-	const data = req.body
+    const data = req.body
+    data.user = req.user
 
 	try {
 		const response = await CommentSerivce.addComment(data)
@@ -31,7 +33,7 @@ router.post('/', async (req, res) => {
 
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
 
     const id = req.params.id
     const data = req.body
@@ -48,7 +50,7 @@ router.put('/:id', async (req, res) => {
 })
 
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
 
 	const id = req.params.id
 
@@ -64,7 +66,7 @@ router.delete('/:id', async (req, res) => {
 })
 
 
-router.post('/reply/:id', async (req, res) => {
+router.post('/reply/:id', auth, async (req, res) => {
 
 	const id = req.params.id
     const data = req.body

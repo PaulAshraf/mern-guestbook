@@ -4,6 +4,8 @@ import { fileURLToPath } from 'url'
 import mongoose from 'mongoose'
 
 import config from './server/config.js'
+import userController from './server/api/user.js'
+import commentController from './server/api/comment.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -19,6 +21,9 @@ app.get('/status', (_, res) => {
 app.get('/', (_, res) => {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
 })
+
+app.use('/api/user', userController)
+app.use('/api/comment', commentController)
 
 mongoose.connect(`mongodb+srv://${config.dbUser}:${config.dbPassword}@${config.hostName}/${config.dbName}?retryWrites=true&w=majority`,
     {
