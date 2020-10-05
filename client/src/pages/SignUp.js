@@ -2,20 +2,31 @@ import React from 'react'
 import { Form, Button, Col } from 'react-bootstrap'
 import { AiOutlineUserAdd } from 'react-icons/ai'
 import styled from 'styled-components'
+import axios from 'axios'
 
 const SignUp = () => {
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault()
-        console.log(e.target.email.value)
+        const email = e.target.email.value
+        const password = e.target.password.value
+
+        try {
+            await axios.post('/api/user/signup', {
+                email,
+                password,
+            })
+        } catch(error) {
+            console.error(error)
+
+        }
+
     }
 
     return (
         <Wrapper>
 
             <h1>Sign Up <AiOutlineUserAdd style={{ color: '#252a34'}} /></h1>
-
-
 
            <Form onSubmit={submit}>
 
@@ -33,10 +44,10 @@ const SignUp = () => {
                         </Form.Group>
                     </Col>
                 </Form.Row>
-                
+
                 <Form.Group controlId="email">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="email" />
+                    <Form.Control type="email" placeholder="Email" />
                 </Form.Group>
 
                 <Form.Group controlId="password">

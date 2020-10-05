@@ -25,7 +25,7 @@ app.get('/', (_, res) => {
 app.use('/api/user', userController)
 app.use('/api/comment', commentController)
 
-mongoose.connect(`mongodb+srv://${config.dbUser}:${config.dbPassword}@${config.hostName}/${config.dbName}?retryWrites=true&w=majority`,
+mongoose.connect(`mongodb://${config.dbUser}:${config.dbPassword}@${config.hostName}/${config.dbName}?ssl=true&replicaSet=atlas-140x3u-shard-0&authSource=admin&retryWrites=true&w=majority`,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
