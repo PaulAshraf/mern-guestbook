@@ -1,23 +1,38 @@
-import React from 'react'
-import { Form, Button, Col } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Form, Button, Col, Toast } from 'react-bootstrap'
 import { AiOutlineUserAdd } from 'react-icons/ai'
 import styled from 'styled-components'
 import axios from 'axios'
 
 const SignUp = () => {
 
+    // State of the status of the post request
+    // NULL if nothin happens, 'error' if the request fails, 'success' if it doesnt fail
+    const [submitStatus, setSubmitStatus] = useState(null)
+    const [showToast, setShowToast] = useState(false)
+
     const submit = async (e) => {
+
         e.preventDefault()
+        
         const email = e.target.email.value
         const password = e.target.password.value
+        const firstName = e.target.firstName.value
+        const lastName = e.target.lastName.value
 
         try {
             await axios.post('/api/user/signup', {
+                firstName,
+                lastName,
                 email,
                 password,
             })
+            setSubmitStatus('success')
+            setShowToast(true)
         } catch(error) {
             console.error(error)
+            setSubmitStatus('error')
+            setShowToast(true)
 
         }
 
@@ -25,6 +40,10 @@ const SignUp = () => {
 
     return (
         <Wrapper>
+
+            {submitStatus && <Toast show={showToast} onClose={() => setShowToast(!showToast)} delay={3000} autohide>
+            {submitStatus === 'error' ? 'Oops! An Error has occured':'Acconut Created Succesfully'}
+            </Toast>}
 
             <h1>Sign Up <AiOutlineUserAdd style={{ color: '#252a34'}} /></h1>
 

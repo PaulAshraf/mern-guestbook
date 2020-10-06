@@ -2,6 +2,7 @@ import express from 'express'
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import mongoose from 'mongoose'
+import bodyParser from 'body-parser'
 
 import config from './server/config.js'
 import userController from './server/api/user.js'
@@ -13,6 +14,10 @@ const __dirname = dirname(__filename)
 const app = express()
 
 app.use(express.static(path.join(__dirname, 'client/build')))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 
 app.get('/status', (_, res) => {
     return res.status(200).send('Server is up ✔️')

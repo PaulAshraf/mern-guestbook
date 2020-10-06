@@ -24,7 +24,7 @@ const signUp = async (user) => {
 
     user.password = hashedPassword
 
-    const res = await User.insertMany(comment)
+    const res = await User.insertMany(user)
     return res
     
 }
@@ -36,7 +36,7 @@ const signUp = async (user) => {
 const logIn = async (email, password) => {
 
     const user = await User.findOne({ email })
-    if(!res)
+    if(!user)
         throw {error: 'No user with this email'}
 
     const correct = await bcrypt.compare(password, user.password)
@@ -44,7 +44,7 @@ const logIn = async (email, password) => {
         throw {error: 'Invalid password'}
 
     const token = jwt.sign({ user }, config.jwtSecret)
-    res.status(200).json({ token })
+    return {token}
 
 
 
