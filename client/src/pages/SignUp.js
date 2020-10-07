@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Form, Button, Col, Toast } from 'react-bootstrap'
 import { AiOutlineUserAdd } from 'react-icons/ai'
 import styled from 'styled-components'
@@ -29,6 +30,7 @@ const SignUp = () => {
             })
             setSubmitStatus('success')
             setShowToast(true)
+            
         } catch(error) {
             console.error(error)
             setSubmitStatus('error')

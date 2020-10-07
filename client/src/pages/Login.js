@@ -7,6 +7,8 @@ import styled from 'styled-components'
 
 const Login = () => {
 
+    const history = useHistory()
+
     // State of the status of the post request
     // NULL if nothin happens, 'error' if the request fails, 'success' if it doesnt fail
     const [submitStatus, setSubmitStatus] = useState(null)
