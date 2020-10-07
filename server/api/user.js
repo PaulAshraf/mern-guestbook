@@ -39,8 +39,8 @@ router.post('/login', async (req, res) => {
 	const password = req.body.password
 
 	try {
-        const token = await UserService.logIn(email, password)
-        res.status(200).json(token)
+        const user = await UserService.logIn(email, password)
+        res.status(200).json(user)
 	} catch (err) {
         console.error(err)
         res.status(400).json({ error: err })

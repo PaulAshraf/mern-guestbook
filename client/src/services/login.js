@@ -1,7 +1,7 @@
 
 const loginUser = (token, data) => {
     localStorage.setItem('userToken', token)
-    localStorage.setItem('userData', data)
+    localStorage.setItem('userData', JSON.stringify(data))
 } 
 
 const logoutUser = () => {
@@ -14,7 +14,7 @@ const getCurrUserToken = () => {
 }
 
 const getCurrUserData = () => {
-    localStorage.getItem('userData')
+    JSON.parse(localStorage.getItem('userData'))
 }
 
 export default {

@@ -44,7 +44,7 @@ const logIn = async (email, password) => {
         throw {error: 'Invalid password'}
 
     const token = jwt.sign({ user }, config.jwtSecret)
-    return {token}
+    return {token, user}
 
 
 

@@ -7,6 +7,8 @@ import axios from 'axios'
 
 const SignUp = () => {
 
+    const history = useHistory()
+
     // State of the status of the post request
     // NULL if nothin happens, 'error' if the request fails, 'success' if it doesnt fail
     const [submitStatus, setSubmitStatus] = useState(null)
@@ -30,7 +32,7 @@ const SignUp = () => {
             })
             setSubmitStatus('success')
             setShowToast(true)
-            
+            history.push('/login')
         } catch(error) {
             console.error(error)
             setSubmitStatus('error')

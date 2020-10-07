@@ -4,6 +4,7 @@ import { Form, Button, Toast } from 'react-bootstrap'
 import { AiOutlineLogout } from 'react-icons/ai'
 import axios from 'axios'
 import styled from 'styled-components'
+import loginService from '../services/login'
 
 const Login = () => {
 
@@ -21,13 +22,14 @@ const Login = () => {
         const password = e.target.password.value
 
         try {
-            await axios.post('/api/user/login', {
+            const user = await axios.post('/api/user/login', {
                 email,
                 password,
             })
             setSubmitStatus('success')
             setShowToast(true)
-
+            loginService.loginUser(user.data.token, user.data.user)
+            history.push('/')
         } catch(error) {
             console.error(error)
             setSubmitStatus('error')
