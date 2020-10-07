@@ -13,12 +13,13 @@ const Schema = mongoose.Schema({
     // which is indicated by `[this]`
     // `this` refers to the comment class created by the `mongoose.Schema({})` class
     replies: {
-        type: [this]
+		type: [this],
+		default: []
     },
     // adds the time of creation of the comment
 	time: {
 		type: Date,
-		default: Date.now,
+		default: Date.now(),
 	},
 	isReply: {
 		type: Boolean,
