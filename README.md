@@ -8,12 +8,12 @@ git clone https://github.com/PaulAshraf/mern-guestbook.git
 ```
 
 ```bash
-npm run dev
+npm i && npm run dev
 ```
 
 ```bash
 cd client
-npm start
+npm i && npm start
 ```
 
 Paul Ashraf © 2020
