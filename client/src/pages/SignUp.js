@@ -87,9 +87,9 @@ const SignUp = (props) => {
                     <Form.Control type="password" placeholder="Password" />
                 </Form.Group>
 
-                <Form.Group>
+                {/* <Form.Group>
                     <Form.File id="image" label="Profile Photo" />
-                </Form.Group>
+                </Form.Group> */}
                
                 <Button variant="primary" type="submit" color='#ff2e63' style={{ backgroundColor: '#ff2e63', borderColor: '#ff2e63'  }}>
                     <ButtonWrapper>Sign Up</ButtonWrapper>

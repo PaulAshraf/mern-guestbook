@@ -100,7 +100,7 @@ const Wrapper = styled.div`
 
 const Image = styled.img`
     border-radius: 50%;
-    width: 10%;
+    width: 50px;
     margin-right: 20px;
     margin-bottom: 10px;
 `
