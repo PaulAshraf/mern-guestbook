@@ -51,7 +51,7 @@ const Login = (props) => {
                     <Form.Control type="password" placeholder="Password" />
                 </Form.Group>
 
-                <p>If you do not have an account, <a href='/signup'>Sign up here</a>.</p>
+                <p>If you do not have an account, <a style={{color: 'blue'}} onClick={() => history.push('/signup')}>Sign up here</a>.</p>
                
                 <Button variant="primary" type="submit" color='#ff2e63' style={{ backgroundColor: '#ff2e63', borderColor: '#ff2e63'  }}>
                     <ButtonWrapper>Login</ButtonWrapper>
