@@ -14,6 +14,13 @@ const SignUp = () => {
     const [submitStatus, setSubmitStatus] = useState(null)
     const [showToast, setShowToast] = useState(false)
 
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => resolve(reader.result)
+        reader.onerror = error => reject(error)
+    })
+
     const submit = async (e) => {
 
         e.preventDefault()
@@ -22,7 +29,17 @@ const SignUp = () => {
         const password = e.target.password.value
         const firstName = e.target.firstName.value
         const lastName = e.target.lastName.value
+        const photoUrl = 'https://iili.io/2UMxcu.png'
 
+        if(e.target.image.files.length > 0) {
+            const base64 = await toBase64(e.target.image.files[0])
+            const response = await axios.post('https://freeimage.host/api/1/upload', null, {params: {
+                key:'6d207e02198a847aa98d0a2a901485a5',
+                source: base64,
+                // action: 'upload',
+            }})
+            console.log(response.data)
+        }
         try {
             await axios.post('/api/user/signup', {
                 firstName,
@@ -76,6 +93,10 @@ const SignUp = () => {
                 <Form.Group controlId="password">
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" />
+                </Form.Group>
+
+                <Form.Group>
+                    <Form.File id="image" label="Profile Photo" />
                 </Form.Group>
                
                 <Button variant="primary" type="submit" color='#ff2e63' style={{ backgroundColor: '#ff2e63', borderColor: '#ff2e63'  }}>

@@ -48,6 +48,9 @@ const Feed = () => {
 
 const Wrapper = styled.div`
     width: 60%;
+    @media (max-width: 600px){
+        width: 95%;
+    }
     margin: auto;
     margin-top: 30px;
 `
