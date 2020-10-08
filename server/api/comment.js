@@ -95,4 +95,19 @@ router.delete('/reply/:replyId/:commentId', auth, async (req, res) => {
     }
 })
 
+router.put('/reply/:replyId/:commentId', auth, async (req, res) => {
+
+	const replyId = req.params.replyId
+	const commentId = req.params.commentId
+	const comment = req.body
+	
+	try {
+        const response = await CommentSerivce.updateReply(replyId, commentId, comment)
+        res.status(200).json(response)
+	} catch (err) {
+        console.error(err)
+        res.status(400).json({ error: err })
+    }
+})
+
 export default router

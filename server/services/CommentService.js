@@ -63,15 +63,14 @@ const deleteReply = async (replyId, commentId) => {
     return {resDelete, resDeleteArray}
 }
 
-const updateReply = async (id, comment) => {
-    comment.isReply = true
-    const resInsert = await Comment.insertMany(comment)
-    const resUpdate = await Comment.findByIdAndUpdate(id, {
-        $push: {
-            replies: resInsert
+const updateReply = async (replyId, commentId, comment) => {
+    const resUpdate = await Comment.findByIdAndUpdate(replyId, comment, {new: true})
+    const resUpdateArray = await Comment.updateOne({_id: ObjectId(commentId), 'replies._id':ObjectId(replyId)}, {
+        $set: {
+            'replies.$.text': comment.text
         }
     }, {new: true})
-    return {resInsert, resUpdate}
+    return {resUpdate, resUpdateArray}
 }
 
 export default {
@@ -81,5 +80,6 @@ export default {
     deleteComment,
     reply,
     deleteReply,
+    updateReply,
 }
 

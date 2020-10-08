@@ -5,7 +5,7 @@ import axios from 'axios'
 import { Card, Container, Row, Col } from 'react-bootstrap'
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 import loginService from '../services/login'
-import Edit from './Edit'
+import EditReply from './EditReply'
 
 const ReplyComment = (props) => {
 
@@ -53,7 +53,7 @@ const ReplyComment = (props) => {
 
     return (
         <Wrapper>
-            <Edit show={showEdit} id={comment._id} handleClose={handleModal} />
+            <EditReply show={showEdit} id={comment._id} handleClose={handleModal} parentId={parentId}/>
             <Card>
                 <Card.Body>
  
