@@ -8,7 +8,6 @@ git clone https://github.com/PaulAshraf/mern-guestbook.git
 ```
 
 ```bash
-cd server
 npm run dev
 ```
 
