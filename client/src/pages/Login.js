@@ -1,19 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { Form, Button, Toast } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import { AiOutlineLogout } from 'react-icons/ai'
 import axios from 'axios'
 import styled from 'styled-components'
 import loginService from '../services/login'
 
-const Login = () => {
+const Login = (props) => {
+
+    const displayMessage = props.displayMessage
 
     const history = useHistory()
 
-    // State of the status of the post request
-    // NULL if nothin happens, 'error' if the request fails, 'success' if it doesnt fail
-    const [submitStatus, setSubmitStatus] = useState(null)
-    const [showToast, setShowToast] = useState(false)
 
     const submit = async (e) => {
         e.preventDefault()
@@ -26,24 +24,18 @@ const Login = () => {
                 email,
                 password,
             })
-            setSubmitStatus('success')
-            setShowToast(true)
+
             loginService.loginUser(user.data.token, user.data.user)
             history.push('/')
         } catch(error) {
             console.error(error)
-            setSubmitStatus('error')
-            setShowToast(true)
+            displayMessage('error', error.toString())
 
         }
     }
 
     return (
         <Wrapper>
-
-            {submitStatus && <Toast show={showToast} onClose={() => setShowToast(!showToast)} delay={3000} autohide>
-            {submitStatus === 'error' ? 'Oops! An Error has occured':'Acconut Created Succesfully'}
-            </Toast>}
 
 
             <h1>Login <AiOutlineLogout style={{ color: '#252a34'}} /></h1>

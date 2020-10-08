@@ -1,25 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { Form, Button, Col, Toast } from 'react-bootstrap'
+import { Form, Button, Col } from 'react-bootstrap'
 import { AiOutlineUserAdd } from 'react-icons/ai'
 import styled from 'styled-components'
 import axios from 'axios'
 
-const SignUp = () => {
+const SignUp = (props) => {
+
+    const displayMessage = props.displayMessage
 
     const history = useHistory()
 
-    // State of the status of the post request
-    // NULL if nothin happens, 'error' if the request fails, 'success' if it doesnt fail
-    const [submitStatus, setSubmitStatus] = useState(null)
-    const [showToast, setShowToast] = useState(false)
-
-    const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = () => resolve(reader.result)
-        reader.onerror = error => reject(error)
-    })
+    // const toBase64 = file => new Promise((resolve, reject) => {
+    //     const reader = new FileReader()
+    //     reader.readAsDataURL(file)
+    //     reader.onload = () => resolve(reader.result)
+    //     reader.onerror = error => reject(error)
+    // })
 
     const submit = async (e) => {
 
@@ -31,29 +28,28 @@ const SignUp = () => {
         const lastName = e.target.lastName.value
         const photoUrl = 'https://iili.io/2UMxcu.png'
 
-        if(e.target.image.files.length > 0) {
-            const base64 = await toBase64(e.target.image.files[0])
-            const response = await axios.post('https://freeimage.host/api/1/upload', null, {params: {
-                key:'6d207e02198a847aa98d0a2a901485a5',
-                source: base64,
-                // action: 'upload',
-            }})
-            console.log(response.data)
-        }
+        // if(e.target.image.files.length > 0) {
+        //     const base64 = await toBase64(e.target.image.files[0])
+        //     const response = await axios.post('https://freeimage.host/api/1/upload', null, {params: {
+        //         key:'KEY',
+        //         source: base64,
+        //         // action: 'upload',
+        //     }})
+        //     console.log(response.data)
+        // }
         try {
             await axios.post('/api/user/signup', {
                 firstName,
                 lastName,
                 email,
                 password,
+                photoUrl,
             })
-            setSubmitStatus('success')
-            setShowToast(true)
+            displayMessage('success', 'Account Succesfully Created!')
             history.push('/login')
         } catch(error) {
             console.error(error)
-            setSubmitStatus('error')
-            setShowToast(true)
+            displayMessage('error', error.toString())
 
         }
 
@@ -61,10 +57,6 @@ const SignUp = () => {
 
     return (
         <Wrapper>
-
-            {submitStatus && <Toast show={showToast} onClose={() => setShowToast(!showToast)} delay={3000} autohide>
-            {submitStatus === 'error' ? 'Oops! An Error has occured':'Acconut Created Succesfully'}
-            </Toast>}
 
             <h1>Sign Up <AiOutlineUserAdd style={{ color: '#252a34'}} /></h1>
 

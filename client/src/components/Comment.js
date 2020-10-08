@@ -11,7 +11,7 @@ import ReplyComment from './ReplyComment'
 
 const Comment = (props) => {
 
-    const imgurl =  'https://scontent.fcai20-2.fna.fbcdn.net/v/t1.0-9/71212107_10220336847750132_5293185109397078016_n.jpg?_nc_cat=110&_nc_sid=174925&_nc_ohc=Yk9Mvo7fPNMAX-MHpxf&_nc_ht=scontent.fcai20-2.fna&oh=135109bf590fed56827a20b0f807a292&oe=5FA53515'
+    // const imgurl =  'https://scontent.fcai20-2.fna.fbcdn.net/v/t1.0-9/71212107_10220336847750132_5293185109397078016_n.jpg?_nc_cat=110&_nc_sid=174925&_nc_ohc=Yk9Mvo7fPNMAX-MHpxf&_nc_ht=scontent.fcai20-2.fna&oh=135109bf590fed56827a20b0f807a292&oe=5FA53515'
 
     const comment = props.comment
 
@@ -61,7 +61,7 @@ const Comment = (props) => {
             <Card>
                 <Card.Body>
                     <Media>
-                    <Image src={imgurl} alt={comment._id} />
+                    <Image src={comment.user.photoUrl} alt={comment.user.firstName} />
                     <Media.Body> 
                     <Card.Title>{`${comment.user.firstName} ${comment.user.lastName}`}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{calcTime(comment._id)}</Card.Subtitle>
