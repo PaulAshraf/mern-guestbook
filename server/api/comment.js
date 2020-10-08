@@ -81,4 +81,18 @@ router.post('/reply/:id', auth, async (req, res) => {
     }
 })
 
+router.delete('/reply/:replyId/:commentId', auth, async (req, res) => {
+
+	const replyId = req.params.replyId
+	const commentId = req.params.commentId
+	
+	try {
+        const response = await CommentSerivce.deleteReply(replyId, commentId)
+        res.status(200).json(response)
+	} catch (err) {
+        console.error(err)
+        res.status(400).json({ error: err })
+    }
+})
+
 export default router

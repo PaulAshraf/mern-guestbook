@@ -85,7 +85,7 @@ const Comment = (props) => {
                         </Row>
                     </Container>
                 </Card.Body>
-                {comment.replies.reverse().map(reply => <ReplyComment comment={reply}/>)}
+                {comment.replies.reverse().map(reply => <ReplyComment parentId={comment._id} comment={reply}/>)}
             </Card>
         </Wrapper>
     )

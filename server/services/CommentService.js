@@ -1,4 +1,6 @@
 import Comment from '../models/Comment.js'
+import mongodb from 'mongodb'
+const { ObjectId } = mongodb
 
 // Views all comments the guestbook
 // OUTPUT: All the comments on the guestbook
@@ -51,11 +53,33 @@ const reply = async (id, comment) => {
     return {resInsert, resUpdate}
 }
 
+const deleteReply = async (replyId, commentId) => {
+    const resDelete = await Comment.deleteOne({_id: replyId})
+    const resDeleteArray = await Comment.findByIdAndUpdate(commentId, {
+        $pull: {
+            replies: { _id: ObjectId(replyId)}
+        }
+    }, {new: true})
+    return {resDelete, resDeleteArray}
+}
+
+const updateReply = async (id, comment) => {
+    comment.isReply = true
+    const resInsert = await Comment.insertMany(comment)
+    const resUpdate = await Comment.findByIdAndUpdate(id, {
+        $push: {
+            replies: resInsert
+        }
+    }, {new: true})
+    return {resInsert, resUpdate}
+}
+
 export default {
     viewAllComments,
     addComment,
     editComment,
     deleteComment,
-    reply
+    reply,
+    deleteReply,
 }
 

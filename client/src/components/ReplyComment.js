@@ -10,6 +10,7 @@ import Edit from './Edit'
 const ReplyComment = (props) => {
 
     const comment = props.comment
+    const parentId = props.parentId
 
     const [showEdit, setShowEdit] = useState(false)
 
@@ -18,12 +19,14 @@ const ReplyComment = (props) => {
     const deleteComment = async (id) => {
         const token = loginService.getCurrUserToken()
         try {
-            await axios.delete(`/api/comment/${id}`, {
+            const response = await axios.delete(`/api/comment/reply/${id}/${parentId}`, {
                 headers: 
                 {
                     authorization: `Bearer ${token}`
                 }
             })
+
+            console.log(response.data)
         }
         catch(error) {
             console.error(error)
