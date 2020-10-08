@@ -6,7 +6,7 @@ const Schema = mongoose.Schema({
 		required: true,
 	},
     user: {
-		type: String,
+		type: Object,
 		required: true,
     },
     // the replies on a comment is an array of comments 
@@ -16,11 +16,6 @@ const Schema = mongoose.Schema({
 		type: [this],
 		default: []
     },
-    // adds the time of creation of the comment
-	time: {
-		type: Date,
-		default: Date.now(),
-	},
 	isReply: {
 		type: Boolean,
 		default: false

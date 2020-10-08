@@ -10,11 +10,11 @@ const logoutUser = () => {
 }
 
 const getCurrUserToken = () => {
-    localStorage.getItem('userToken')
+    return localStorage.getItem('userToken')
 }
 
 const getCurrUserData = () => {
-    JSON.parse(localStorage.getItem('userData'))
+    return JSON.parse(localStorage.getItem('userData'))
 }
 
 export default {

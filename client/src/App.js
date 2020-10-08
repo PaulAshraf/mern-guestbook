@@ -14,9 +14,9 @@ function App() {
       <Logo />
       <Router>
         <Switch>
-          <Route path='/'><Feed /></Route>
-          <Route path='/login'><Login /></Route>
-          <Route path='/signup'><SignUp /></Route>
+          <Route exact path='/login'><Login /></Route>
+          <Route exact path='/signup'><SignUp /></Route>
+          <Route exact path='/'><Feed /></Route>
         </Switch>
       </Router>
       

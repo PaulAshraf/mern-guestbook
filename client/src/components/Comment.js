@@ -13,10 +13,18 @@ const Comment = (props) => {
         const oldDate = new Date(ObjectId(id).getTimestamp())
         const nowDate = new Date()
         const diff = nowDate - oldDate
-        if (diff > 60e3) 
-            return `${Math.floor(diff / 60e3)} minutes ago`
-        else
-            return `${Math.floor(diff / 1e3)} seconds ago`
+        if (diff > 86400e3) 
+            return `${Math.floor(diff / 86400e3)} days ago`
+        else{
+            if (diff > 3600e3)
+                return `${Math.floor(diff / 3600e3)} hours ago`
+            else {
+                if (diff > 60e3) 
+                    return `${Math.floor(diff / 60e3)} minutes ago`
+                else
+                    return `${Math.floor(diff / 1e3)} seconds ago`
+            }
+        }
     }
 
     return (
@@ -26,7 +34,7 @@ const Comment = (props) => {
                     <Media>
                     <Image src={imgurl} alt={comment._id} />
                     <Media.Body> 
-                    <Card.Title>{comment.user}</Card.Title>
+                    <Card.Title>{`${comment.user.firstName} ${comment.user.lastName}`}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{calcTime(comment._id)}</Card.Subtitle>
                     </Media.Body>
                     </Media>
