@@ -3,7 +3,7 @@ import Comment from '../models/Comment.js'
 // Views all comments the guestbook
 // OUTPUT: All the comments on the guestbook
 const viewAllComments = async () => {
-    const res = await Comment.find({})
+    const res = await Comment.find({isReply: false})
     return res
 }
 
@@ -19,7 +19,7 @@ const addComment = async (comment) => {
 // INPUT: the id of the comment, the new data
 // OUTPUT: the mongoose respone of the operation
 const editComment = async (id, comment) => {
-    const res = await Comment.User.findByIdAndUpdate(id, comment, {new: true})
+    const res = await Comment.findByIdAndUpdate(id, comment, {new: true})
     if(!res)
         throw {error: 'No comment with this id'}
     return res
@@ -29,7 +29,7 @@ const editComment = async (id, comment) => {
 // INPUT: the id of the comment
 // OUTPUT: the mongoose respone of the operation
 const deleteComment = async (id) => {
-    const res = await Comment.deleteOne(id)
+    const res = await Comment.deleteOne({_id: id})
     if(!res)
         throw {error: 'No comment with this id'}
     return res
@@ -43,7 +43,7 @@ const deleteComment = async (id) => {
 const reply = async (id, comment) => {
     comment.isReply = true
     const resInsert = await Comment.insertMany(comment)
-    const resUpdate = await Comment.User.findByIdAndUpdate(id, {
+    const resUpdate = await Comment.findByIdAndUpdate(id, {
         $push: {
             replies: resInsert
         }

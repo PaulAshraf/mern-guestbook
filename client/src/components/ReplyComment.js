@@ -2,24 +2,18 @@ import React, {useState} from 'react'
 import {ObjectId} from 'mongodb'
 import styled from 'styled-components'
 import axios from 'axios'
-import { Card, Container, Media, Row, Col } from 'react-bootstrap'
-import { AiOutlineEdit, AiOutlineDelete, AiOutlineComment } from 'react-icons/ai'
+import { Card, Container, Row, Col } from 'react-bootstrap'
+import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 import loginService from '../services/login'
 import Edit from './Edit'
-import NewReply from './NewReply'
-import ReplyComment from './ReplyComment'
 
-const Comment = (props) => {
-
-    const imgurl =  'https://scontent.fcai20-2.fna.fbcdn.net/v/t1.0-9/71212107_10220336847750132_5293185109397078016_n.jpg?_nc_cat=110&_nc_sid=174925&_nc_ohc=Yk9Mvo7fPNMAX-MHpxf&_nc_ht=scontent.fcai20-2.fna&oh=135109bf590fed56827a20b0f807a292&oe=5FA53515'
+const ReplyComment = (props) => {
 
     const comment = props.comment
 
     const [showEdit, setShowEdit] = useState(false)
-    const [showReply, setShowReply] = useState(false)
 
     const handleModal = () => setShowEdit(!showEdit)
-    const handleReply = () => setShowReply(!showReply)
 
     const deleteComment = async (id) => {
         const token = loginService.getCurrUserToken()
@@ -57,23 +51,18 @@ const Comment = (props) => {
     return (
         <Wrapper>
             <Edit show={showEdit} id={comment._id} handleClose={handleModal} />
-            <NewReply show={showReply} id={comment._id} handleClose={handleReply} />
             <Card>
                 <Card.Body>
-                    <Media>
-                    <Image src={imgurl} alt={comment._id} />
-                    <Media.Body> 
+ 
                     <Card.Title>{`${comment.user.firstName} ${comment.user.lastName}`}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{calcTime(comment._id)}</Card.Subtitle>
-                    </Media.Body>
-                    </Media>
+
                     <Container>
                         <Row >
                             <Col>
                                 <Card.Text>{comment.text}</Card.Text>
                             </Col>
                             <Col md='auto' >
-                                <Card.Link style={{verticalAlign: 'bottom'}} onClick={handleReply}><AiOutlineComment size='1.3em' style={{ color: '#252a34'}} /></Card.Link>
                                 {
                                     loginService.getCurrUserData() && loginService.getCurrUserData()._id === comment.user._id ? <>
                                     <Card.Link style={{verticalAlign: 'bottom'}} onClick={handleModal}><AiOutlineEdit    size='1.3em' style={{ color: '#252a34'}} /></Card.Link>
@@ -85,24 +74,17 @@ const Comment = (props) => {
                         </Row>
                     </Container>
                 </Card.Body>
-                {comment.replies.reverse().map(reply => <ReplyComment comment={reply}/>)}
             </Card>
         </Wrapper>
     )
 }
 
 const Wrapper = styled.div`
-    width: 100%;
-    margin: auto;
+    width: 90%;
+    margin-left: auto;
+    margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
 `
 
-const Image = styled.img`
-    border-radius: 50%;
-    width: 10%;
-    margin-right: 20px;
-    margin-bottom: 10px;
-`
-
-export default Comment
+export default ReplyComment

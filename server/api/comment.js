@@ -69,7 +69,8 @@ router.delete('/:id', auth, async (req, res) => {
 router.post('/reply/:id', auth, async (req, res) => {
 
 	const id = req.params.id
-    const data = req.body
+	const data = req.body
+	data.user = req.user
 
 	try {
         const response = await CommentSerivce.reply(id, data)
