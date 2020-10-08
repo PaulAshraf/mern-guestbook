@@ -5,8 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon server/app.js",
-    "start": "node server/app.js",
+    "dev": "nodemon app.js",
+    "start": "node app.js",
     "build": "cd client && npm i && npm run build && cd ..",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
