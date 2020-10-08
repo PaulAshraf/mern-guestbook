@@ -17,10 +17,4 @@ cd client
 npm start
 ```
 
-## Visit the deployed instance
-
-
-
----
-
 Paul Ashraf © 2020
