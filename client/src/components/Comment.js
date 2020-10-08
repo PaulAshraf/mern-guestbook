@@ -1,13 +1,18 @@
 import React from 'react'
 import {ObjectId} from 'mongodb'
 import styled from 'styled-components'
-import { Card, Media } from 'react-bootstrap'
+import { Card, Container, Media, Row, Col } from 'react-bootstrap'
+import { AiOutlineEdit, AiOutlineDelete, AiOutlineComment } from 'react-icons/ai'
 
 const Comment = (props) => {
 
     const imgurl =  'https://scontent.fcai20-2.fna.fbcdn.net/v/t1.0-9/71212107_10220336847750132_5293185109397078016_n.jpg?_nc_cat=110&_nc_sid=174925&_nc_ohc=Yk9Mvo7fPNMAX-MHpxf&_nc_ht=scontent.fcai20-2.fna&oh=135109bf590fed56827a20b0f807a292&oe=5FA53515'
 
     const comment = props.comment
+
+    const hello = () => console.log("hello, world")
+
+    cons
 
     const calcTime = (id) => {
         const oldDate = new Date(ObjectId(id).getTimestamp())
@@ -38,9 +43,18 @@ const Comment = (props) => {
                     <Card.Subtitle className="mb-2 text-muted">{calcTime(comment._id)}</Card.Subtitle>
                     </Media.Body>
                     </Media>
-                    <Card.Text>{comment.text}</Card.Text>
-                    <Card.Link href="#">Card Link</Card.Link>
-                    <Card.Link href="#">Another Link</Card.Link>
+                    <Container>
+                        <Row>
+                            <Col>
+                                <Card.Text>{comment.text}</Card.Text>
+                            </Col>
+                            <Col md='auto'>
+                                <Card.Link onClick={hello}><AiOutlineComment size='1.3em' style={{ color: '#252a34'}} /></Card.Link>
+                                <Card.Link onClick={editComment(comment._id)}><AiOutlineEdit    size='1.3em' style={{ color: '#252a34'}} /></Card.Link>
+                                <Card.Link onClick={deleteComment(comment._id)}><AiOutlineDelete  size='1.3em' style={{ color: '#252a34'}} /></Card.Link>
+                            </Col>
+                        </Row>
+                    </Container>
                 </Card.Body>
             </Card>
         </Wrapper>
